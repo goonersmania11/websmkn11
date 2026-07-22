@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Admin Panel - SMKN 11</title>
+    <title>@yield('title', 'Admin Panel - SMKN 11')</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('sneat/assets/img/favicon/favicon.ico') }}" />
@@ -59,7 +59,21 @@
                             <div data-i18n="Users">Manajemen User</div>
                         </a>
                     </li>
-                    <!-- Ruang untuk menu Anggota 2 & 3 selanjutnya -->
+                    <!-- Profil Sekolah -->
+                    <li class="menu-item {{ request()->routeIs('admin.profiles.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.profiles.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-buildings"></i>
+                            <div data-i18n="Profiles">Profil Sekolah</div>
+                        </a>
+                    </li>
+
+                    <!-- Jurusan -->
+                    <li class="menu-item {{ request()->routeIs('admin.jurusans.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.jurusans.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-book-content"></i>
+                            <div data-i18n="Jurusan">Jurusan</div>
+                        </a>
+                    </li>
                 </ul>
             </aside>
             <!-- / Menu Sidebar -->
