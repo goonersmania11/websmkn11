@@ -1,13 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
+
 
 // Halaman utama sementara
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 // Route untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
@@ -28,9 +33,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
         })->name('dashboard');
+           
+        //Route CRUD Profile & Jurusan
+         Route::resource('profiles', ProfileController::class);
+         Route::resource('jurusans', JurusanController::class);
 
         // Route CRUD User Management
         Route::resource('users', UserController::class);
         
     });
 });
+
