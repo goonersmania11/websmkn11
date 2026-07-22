@@ -1,58 +1,92 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+// Controllers
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\PrestasiController;
 use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\AgendaController;
-
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\JurusanController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuthController;
 
 
-// Halaman utama sementara
+// ==================================================
+// HALAMAN PUBLIC
+// ==================================================
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-// Route untuk tamu (belum login)
+// ==================================================
+// AUTHENTICATION
+// ==================================================
+
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
+
+    Route::get('/login', [AuthController::class, 'login'])
+        ->name('login');
+
     Route::post('/login', [AuthController::class, 'authenticate']);
+
 });
 
-// Route untuk admin (wajib login DAN wajib role admin)
+
+// ==================================================
+// ADMIN PANEL
+// ==================================================
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    
-    // Route logout diletakkan di luar prefix agar route('logout') tetap berfungsi
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    
-    // Group khusus untuk halaman admin (URL diawali /admin dan nama diawali admin.)
-    Route::prefix('admin')->name('admin.')->group(function () {
-        
-        // Halaman Dashboard Admin
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
-           
-        //Route CRUD Profile & Jurusan
-         Route::resource('profiles', ProfileController::class);
-         Route::resource('jurusans', JurusanController::class);
 
-        // Route CRUD User Management
-        Route::resource('users', UserController::class);
-        
-    });
-});
+    // Logout
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
 
 
-// Grouping URL untuk semua rute Admin
-Route::prefix('admin')->group(function () {
-    Route::resource('berita', BeritaController::class);
-    Route::resource('prestasi', PrestasiController::class);
-    Route::resource('pengumuman', PengumumanController::class);
-    Route::resource('agenda', AgendaController::class);
+    // Semua URL admin menggunakan /admin
+    // Semua nama route menggunakan admin.
+    Route::prefix('admin')
+        ->name('admin.')
+        ->group(function () {
+
+
+            // Dashboard
+            Route::get('/dashboard', function () {
+                return view('admin.dashboard');
+            })->name('dashboard');
+
+
+            // User Management
+            Route::resource('users', UserController::class);
+
+
+            // Profil Sekolah
+            Route::resource('profiles', ProfileController::class);
+
+
+            // Jurusan
+            Route::resource('jurusans', JurusanController::class);
+
+
+            // Berita
+            Route::resource('berita', BeritaController::class);
+
+
+            // Prestasi
+            Route::resource('prestasi', PrestasiController::class);
+
+
+            // Pengumuman
+            Route::resource('pengumuman', PengumumanController::class);
+
+
+            // Agenda
+            Route::resource('agenda', AgendaController::class);
+
+        });
+
 });
