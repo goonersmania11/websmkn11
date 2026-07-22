@@ -5,7 +5,7 @@
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengumuman /</span> Edit</h4>
     <div class="card mb-4">
         <div class="card-body">
-            <form action="{{ route('pengumuman.update', $pengumuman->id) }}" method="POST">
+            <form action="{{ route('admin.pengumuman.update', $pengumuman->id) }}" method="POST">
                 @csrf @method('PUT')
                 <div class="mb-3">
                     <label class="form-label">Judul Pengumuman</label>
@@ -29,7 +29,7 @@
                     <textarea class="form-control" name="isi" rows="5" required>{{ $pengumuman->isi }}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Perbarui</button>
-                <a href="{{ route('pengumuman.index') }}" class="btn btn-secondary">Batal</a>
+                <a href="{{ route('admin.pengumuman.index') }}" class="btn btn-secondary">Batal</a>
             </form>
         </div>
     </div>

@@ -9,10 +9,10 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Form Ubah Prestasi</h5>
-                    <a href="{{ route('prestasi.index') }}" class="btn btn-secondary btn-sm">Kembali</a>
+                    <a href="{{ route('admin.prestasi.index') }}" class="btn btn-secondary btn-sm">Kembali</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('prestasi.update', $prestasi->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.prestasi.update', $prestasi->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         

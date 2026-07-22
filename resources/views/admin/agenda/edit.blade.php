@@ -5,7 +5,7 @@
     <h4 class="fw-bold py-3 mb-4">Edit Agenda</h4>
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('agenda.update', $agenda->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.agenda.update', $agenda->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf @method('PUT')
                 <div class="mb-3">
                     <label class="form-label">Judul Agenda</label>
@@ -34,7 +34,7 @@
                     <textarea class="form-control" name="deskripsi" rows="4" required>{{ $agenda->deskripsi }}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Perbarui</button>
-                <a href="{{ route('agenda.index') }}" class="btn btn-secondary">Batal</a>
+                <a href="{{ route('admin.agenda.index') }}" class="btn btn-secondary">Batal</a>
             </form>
         </div>
     </div>

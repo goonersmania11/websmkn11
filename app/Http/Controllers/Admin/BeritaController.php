@@ -52,13 +52,13 @@ class BeritaController extends Controller
 
         Berita::create($data);
 
-        return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan!');
+        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan!');
     }
 
     public function show(Berita $berita)
     {
         // Fitur show biasanya opsional di admin panel, lewati saja atau arahkan ke edit
-        return redirect()->route('berita.edit', $berita->id);
+        return redirect()->route('admin.berita.edit', $berita->id);
     }
 
     // 4. TAMPILKAN FORM EDIT BERITA
@@ -103,7 +103,7 @@ class BeritaController extends Controller
 
         $berita->update($data);
 
-        return redirect()->route('berita.index')->with('success', 'Berita berhasil diperbarui!');
+        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diperbarui!');
     }
 
     // 6. PROSES HAPUS BERITA
@@ -118,6 +118,6 @@ class BeritaController extends Controller
 
         $berita->delete();
 
-        return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus!');
+        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil dihapus!');
     }
 }

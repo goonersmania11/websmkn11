@@ -9,10 +9,10 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Form Ubah Berita</h5>
-                    <a href="{{ route('berita.index') }}" class="btn btn-secondary btn-sm">Kembali</a>
+                    <a href="{{ route('admin.berita.index') }}" class="btn btn-secondary btn-sm">Kembali</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         

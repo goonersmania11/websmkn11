@@ -5,7 +5,7 @@
     <h4 class="fw-bold py-3 mb-4">Tambah Agenda</h4>
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('agenda.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.agenda.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Judul Agenda</label>
@@ -34,7 +34,7 @@
                     <textarea class="form-control" name="deskripsi" rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('agenda.index') }}" class="btn btn-secondary">Batal</a>
+                <a href="{{ route('admin.agenda.index') }}" class="btn btn-secondary">Batal</a>
             </form>
         </div>
     </div>
