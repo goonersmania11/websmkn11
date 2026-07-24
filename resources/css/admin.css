@@ -1,0 +1,40 @@
+@import '@tabler/core/dist/css/tabler.min.css';
+@import '@tabler/icons-webfont/dist/tabler-icons.min.css';
+
+.sidebar-brand {
+    align-items: center;
+    background: rgba(255, 255, 255, .08);
+    border-bottom: 1px solid rgba(255, 255, 255, .18);
+    display: flex;
+    justify-content: center;
+    min-height: 76px;
+    padding: 1rem 3.5rem 1rem 1rem;
+    position: relative;
+}
+
+.sidebar-brand .navbar-brand {
+    font-size: 1.25rem;
+    letter-spacing: .04em;
+    text-align: center;
+}
+
+.sidebar-brand .navbar-toggler {
+    position: absolute;
+    right: 1rem;
+}
+
+.sidebar-navigation {
+    padding: .75rem;
+}
+
+.page-body .container,
+.page-body .container-xxl {
+    max-width: 100%;
+    padding: 0;
+}
+
+.bg-label-secondary { background-color: var(--tblr-secondary-lt) !important; color: var(--tblr-secondary) !important; }
+.bg-label-success { background-color: var(--tblr-success-lt) !important; color: var(--tblr-success) !important; }
+.bg-label-warning { background-color: var(--tblr-warning-lt) !important; color: var(--tblr-warning) !important; }
+.bg-label-info { background-color: var(--tblr-info-lt) !important; color: var(--tblr-info) !important; }
+.btn-icon { display: inline-flex; align-items: center; justify-content: center; }

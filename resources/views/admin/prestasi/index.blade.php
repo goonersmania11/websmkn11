@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -54,7 +54,7 @@
                 class="btn btn-primary btn-sm"
             >
 
-                <i class="bx bx-plus me-1"></i>
+<i class="ti ti-plus me-1"></i>
 
                 Tambah Prestasi
 
@@ -178,7 +178,7 @@
                                         href="{{ route('admin.prestasi.edit', $prestasi->id) }}"
                                     >
 
-                                        <i class="bx bx-edit-alt me-1"></i>
+<i class="ti ti-edit me-1"></i>
 
                                         Edit
 
@@ -203,7 +203,7 @@
                                             class="btn btn-sm btn-outline-danger"
                                         >
 
-                                            <i class="bx bx-trash me-1"></i>
+<i class="ti ti-trash me-1"></i>
 
                                             Hapus
 

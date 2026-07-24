@@ -17,7 +17,7 @@
         <div class="card-header d-flex align-items-center justify-content-between">
             <h5 class="mb-0">Data Profil Sekolah</h5>
             <a href="{{ route('admin.profiles.create') }}" class="btn btn-primary">
-                <i class="bx bx-plus me-1"></i> Tambah Profil
+                <i class="ti ti-plus me-1"></i> Tambah Profil
             </a>
         </div>
 
@@ -74,7 +74,7 @@
                                 <a href="{{ route('admin.profiles.edit', $profile->id) }}"
                                    class="btn btn-sm btn-icon btn-outline-warning"
                                    title="Edit">
-                                    <i class="bx bx-edit-alt"></i>
+                                    <i class="ti ti-edit"></i>
                                 </a>
                                 <form action="{{ route('admin.profiles.destroy', $profile->id) }}"
                                       method="POST"
@@ -84,7 +84,7 @@
                                     <button class="btn btn-sm btn-icon btn-outline-danger"
                                             title="Hapus"
                                             onclick="return confirm('Yakin ingin menghapus data ini?')">
-                                        <i class="bx bx-trash"></i>
+                                        <i class="ti ti-trash"></i>
                                     </button>
                                 </form>
                             </div>
@@ -94,7 +94,7 @@
                     <tr>
                         <td colspan="11" class="text-center py-5">
                             <div class="mb-2">
-                                <i class="bx bx-data" style="font-size: 2.5rem; color: #ccc;"></i>
+                                <i class="ti ti-database-off" style="font-size: 2.5rem; color: #ccc;"></i>
                             </div>
                             <p class="mb-0 text-muted">Belum ada data profil sekolah.</p>
                         </td>

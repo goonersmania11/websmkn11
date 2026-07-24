@@ -28,7 +28,7 @@ php artisan key:generate
 ```
 
 ```
-php migrate:fresh --seed
+php artisan migrate:fresh --seed
 ```
 
 ```

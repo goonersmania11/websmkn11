@@ -1,231 +1,421 @@
-<!DOCTYPE html>
-<html lang="id" class="light-style layout-menu-fixed">
+<!doctype html>
+<html lang="id">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>@yield('title', 'Admin Panel - SMKN 11')</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('sneat/assets/img/favicon/favicon.ico') }}" />
+    <title>@yield('title', 'Admin Panel') - SMKN 11</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+    @vite(['resources/css/admin.css', 'resources/js/admin.js'])
 
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/fonts/boxicons.css') }}" />
+    <style>
+        /* =========================
+           SIDEBAR BRANDING
+        ========================== */
 
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('sneat/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('sneat/assets/css/demo.css') }}" />
+        .sidebar-brand {
+            min-height: 72px;
+            padding: 18px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
 
-    <script src="{{ asset('sneat/assets/vendor/js/helpers.js') }}"></script>
-    <script src="{{ asset('sneat/assets/js/config.js') }}"></script>
+        .sidebar-brand h1 {
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-navigation {
+            padding-top: 10px;
+        }
+
+        .sidebar-navigation .navbar-nav {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .sidebar-navigation .nav-link {
+            border-radius: 6px;
+            margin-bottom: 3px;
+        }
+
+        .sidebar-navigation .nav-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-navigation .nav-item.active .nav-link {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* =========================
+           CARD
+        ========================== */
+
+        .card {
+            border-radius: 8px;
+        }
+
+        .card-header {
+            min-height: 60px;
+        }
+
+        /* =========================
+           TABLE
+        ========================== */
+
+        .table td,
+        .table th {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
+    <div class="page">
 
-            <!-- SIDEBAR -->
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        {{-- SIDEBAR --}}
+        <aside class="navbar navbar-vertical navbar-expand-lg"
+               data-bs-theme="dark">
 
-                <div class="app-brand demo">
-                    <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
-                        <span class="app-brand-text demo menu-text fw-bolder ms-2">
+            <div class="container-fluid p-0">
+
+                {{-- BRANDING --}}
+                <div class="sidebar-brand">
+
+                    <h1 class="navbar-brand m-0">
+
+                        <a href="{{ route('admin.dashboard') }}"
+                           class="text-decoration-none text-white">
+
                             SMKN 11
-                        </span>
-                    </a>
 
-                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-                    </a>
+                        </a>
+
+                    </h1>
+
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#sidebar-menu"
+                            aria-controls="sidebar-menu"
+                            aria-expanded="false"
+                            aria-label="Buka navigasi">
+
+                        <span class="navbar-toggler-icon"></span>
+
+                    </button>
+
                 </div>
 
-                <div class="menu-inner-shadow"></div>
+                {{-- MENU --}}
+                <div class="collapse navbar-collapse sidebar-navigation"
+                     id="sidebar-menu">
 
-                <ul class="menu-inner py-1">
+                    <ul class="navbar-nav pt-lg-3">
 
-                    <!-- DASHBOARD -->
-                    <li class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <a href="{{ route('admin.dashboard') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Dashboard">
-                                Dashboard
-                            </div>
-                        </a>
-                    </li>
+                        {{-- Dashboard --}}
+                        <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
-                    <!-- MANAJEMEN USER -->
-                    <li class="menu-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.users.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-user"></i>
-                            <div data-i18n="Users">
-                                Manajemen User
-                            </div>
-                        </a>
-                    </li>
+                            <a class="nav-link"
+                               href="{{ route('admin.dashboard') }}">
 
-                    <!-- PROFIL SEKOLAH -->
-                    <li class="menu-item {{ request()->routeIs('admin.profiles.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.profiles.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-buildings"></i>
-                            <div data-i18n="Profiles">
-                                Profil Sekolah
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- JURUSAN -->
-                    <li class="menu-item {{ request()->routeIs('admin.jurusans.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.jurusans.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-book-content"></i>
-                            <div data-i18n="Jurusan">
-                                Jurusan
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- BERITA -->
-                    <li class="menu-item {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.berita.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-news"></i>
-                            <div data-i18n="Berita">
-                                Berita
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- PRESTASI -->
-                    <li class="menu-item {{ request()->routeIs('admin.prestasi.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.prestasi.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-trophy"></i>
-                            <div data-i18n="Prestasi">
-                                Prestasi
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- PENGUMUMAN -->
-                    <li class="menu-item {{ request()->routeIs('admin.pengumuman.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.pengumuman.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-bell"></i>
-                            <div data-i18n="Pengumuman">
-                                Pengumuman
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- AGENDA -->
-                    <li class="menu-item {{ request()->routeIs('admin.agenda.*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.agenda.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-calendar"></i>
-                            <div data-i18n="Agenda">
-                                Agenda
-                            </div>
-                        </a>
-                    </li>
-
-                </ul>
-            </aside>
-            <!-- / SIDEBAR -->
-
-
-            <!-- LAYOUT PAGE -->
-            <div class="layout-page">
-
-                <!-- NAVBAR -->
-                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                    id="layout-navbar">
-
-                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                            <i class="bx bx-menu bx-sm"></i>
-                        </a>
-                    </div>
-
-                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-                        <ul class="navbar-nav flex-row align-items-center ms-auto">
-
-                            <!-- USER -->
-                            <li class="nav-item lh-1 me-3">
-                                <span class="fw-semibold d-block">
-                                    Halo, {{ auth()->user()->name }}
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-home"></i>
                                 </span>
-                            </li>
 
-                            <!-- LOGOUT -->
-                            <li class="nav-item">
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
+                                <span class="nav-link-title">
+                                    Dashboard
+                                </span>
 
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">
-                                        Logout
-                                    </button>
-                                </form>
-                            </li>
+                            </a>
 
-                        </ul>
+                        </li>
 
-                    </div>
-                </nav>
-                <!-- / NAVBAR -->
+                        {{-- User --}}
+                        <li class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.users.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-users"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Manajemen User
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        {{-- Profil --}}
+                        <li class="nav-item {{ request()->routeIs('admin.profiles.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.profiles.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-building-community"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Profil Sekolah
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        {{-- Jurusan --}}
+                        <li class="nav-item {{ request()->routeIs('admin.jurusans.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.jurusans.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-book-2"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Jurusan
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        {{-- Guru --}}
+                        <li class="nav-item {{ request()->routeIs('admin.gurus.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.gurus.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-school"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Guru
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        {{-- Berita --}}
+                        <li class="nav-item {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.berita.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-news"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Berita
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        {{-- Prestasi --}}
+                        <li class="nav-item {{ request()->routeIs('admin.prestasi.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.prestasi.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-trophy"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Prestasi
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        {{-- Pengumuman --}}
+                        <li class="nav-item {{ request()->routeIs('admin.pengumuman.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.pengumuman.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-bell"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Pengumuman
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        {{-- Agenda --}}
+                        <li class="nav-item {{ request()->routeIs('admin.agenda.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.agenda.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-calendar-event"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Agenda
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </aside>
 
 
-                <!-- CONTENT -->
-                <div class="content-wrapper">
+        {{-- HEADER --}}
+        <header class="navbar navbar-expand-md d-print-none">
 
-                    <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container-xl">
 
-                        @yield('content')
+                <div class="navbar-nav flex-row order-md-last ms-auto">
 
-                    </div>
+                    <div class="nav-item dropdown">
 
+                        <a href="#"
+                           class="nav-link d-flex lh-1 text-reset p-0"
+                           data-bs-toggle="dropdown"
+                           aria-label="Buka menu pengguna">
 
-                    <!-- FOOTER -->
-                    <footer class="content-footer footer bg-footer-theme">
+                            <span class="avatar avatar-sm bg-primary-lt">
 
-                        <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
 
-                            <div class="mb-2 mb-md-0">
+                            </span>
 
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
+                            <div class="d-none d-xl-block ps-2">
 
-                                SMKN 11 Project
+                                <div>
+                                    {{ auth()->user()->name }}
+                                </div>
+
+                                <div class="mt-1 small text-secondary">
+
+                                    {{ ucfirst(auth()->user()->role) }}
+
+                                </div>
 
                             </div>
+
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+
+                            <form action="{{ route('logout') }}"
+                                  method="POST">
+
+                                @csrf
+
+                                <button type="submit"
+                                        class="dropdown-item">
+
+                                    Logout
+
+                                </button>
+
+                            </form>
 
                         </div>
 
-                    </footer>
-                    <!-- / FOOTER -->
-
-                    <div class="content-backdrop fade"></div>
+                    </div>
 
                 </div>
-                <!-- / CONTENT -->
 
             </div>
-            <!-- / LAYOUT PAGE -->
+
+        </header>
+
+
+        {{-- CONTENT --}}
+        <div class="page-wrapper">
+
+            <div class="page-header d-print-none">
+
+                <div class="container-xl">
+
+                    <div class="row g-2 align-items-center">
+
+                        <div class="col">
+
+                            <div class="page-pretitle">
+                                Admin Panel
+                            </div>
+
+                            <h2 class="page-title">
+
+                                @yield('title', 'Dashboard')
+
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="page-body">
+
+                <div class="container-xl">
+
+                    @yield('content')
+
+                </div>
+
+            </div>
+
+
+            <footer class="footer footer-transparent d-print-none">
+
+                <div class="container-xl">
+
+                    <div class="row text-center align-items-center flex-row-reverse">
+
+                        <div class="col-12">
+
+                            © {{ date('Y') }} SMKN 11
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </footer>
 
         </div>
+
     </div>
 
-
-    <!-- JAVASCRIPT -->
-
-    <script src="{{ asset('sneat/assets/vendor/libs/jquery/jquery.js') }}"></script>
-
-    <script src="{{ asset('sneat/assets/vendor/libs/popper/popper.js') }}"></script>
-
-    <script src="{{ asset('sneat/assets/vendor/js/bootstrap.js') }}"></script>
-
-    <script src="{{ asset('sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-
-    <script src="{{ asset('sneat/assets/vendor/js/menu.js') }}"></script>
-
-    <script src="{{ asset('sneat/assets/js/main.js') }}"></script>
-
 </body>
+
 </html>

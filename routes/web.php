@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\JurusanController;
+use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 
@@ -70,6 +71,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
             // Jurusan
             Route::resource('jurusans', JurusanController::class);
+
+
+            // Guru
+            Route::resource('gurus', GuruController::class);
 
 
             // Berita

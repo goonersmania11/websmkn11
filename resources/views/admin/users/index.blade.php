@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title', 'Manajemen User')
+
 @section('content')
 <h4 class="fw-bold py-3 mb-4">Manajemen User</h4>
 
@@ -36,7 +38,7 @@
                         <td><strong>{{ $user->name }}</strong></td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <span class="badge bg-label-{{ $user->role == 'admin' ? 'success' : 'info' }} me-1">
+                            <span class="badge bg-{{ $user->role == 'admin' ? 'success' : 'info' }}-lt text-{{ $user->role == 'admin' ? 'success' : 'info' }} me-1">
                                 {{ ucfirst($user->role) }}
                             </span>
                         </td>

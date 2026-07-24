@@ -23,7 +23,15 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama_sekolah' => 'required|string|max:255',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'alamat' => 'required',
+            'deskripsi' => 'nullable',
+            'sejarah' => 'required',
+            'visi' => 'required',
+            'misi' => 'required',
+            'sambutan_kepala_sekolah' => 'required',
+            'foto_kepala_sekolah' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 }
