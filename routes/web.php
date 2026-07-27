@@ -55,6 +55,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->group(function () {
 
 
+            // Redirect /admin to /admin/dashboard
+            Route::get('/', function () {
+                return redirect()->route('admin.dashboard');
+            });
+
             // Dashboard
             Route::get('/dashboard', function () {
                 return view('admin.dashboard');
