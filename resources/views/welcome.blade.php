@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
 
-```
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SMKN 11 - Sekolah Menengah Kejuruan</title>
@@ -85,13 +85,13 @@
     }
 
 </style>
-```
+
 
 </head>
 
 <body>
 
-```
+
 <!-- NAVBAR -->
 
 <nav class="navbar navbar-expand-lg sticky-top">
@@ -789,7 +789,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
-```
 
 </body>
 
