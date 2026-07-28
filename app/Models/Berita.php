@@ -21,7 +21,7 @@ class Berita extends Model
         'gambar',
         'kategori',
         'status',
-        'tanggal_publish'
+        'tanggal_publish',
     ];
 
     // Menghubungkan berita dengan user/admin yang menulisnya

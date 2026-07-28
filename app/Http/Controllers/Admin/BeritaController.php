@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BeritaController extends Controller
 {
@@ -14,6 +14,7 @@ class BeritaController extends Controller
     public function index()
     {
         $beritas = Berita::with('user')->latest()->get();
+
         return view('admin.berita.index', compact('beritas'));
     }
 
@@ -35,12 +36,12 @@ class BeritaController extends Controller
         ]);
 
         $data = $request->all();
-        
+
         // Logika membuat slug otomatis dari judul
         $data['slug'] = Str::slug($request->judul);
-        
+
         // Ambil ID admin yang sedang login (jika auth belum siap, sementara gunakan ID 1)
-        $data['user_id'] = auth()->id() ?? 1; 
+        $data['user_id'] = auth()->id() ?? 1;
 
         // Atur tanggal publish otomatis jika statusnya langsung Published
         $data['tanggal_publish'] = $request->status == 'Published' ? now() : null;
@@ -65,6 +66,7 @@ class BeritaController extends Controller
     public function edit($id)
     {
         $berita = Berita::findOrFail($id);
+
         return view('admin.berita.edit', compact('berita'));
     }
 
@@ -85,7 +87,7 @@ class BeritaController extends Controller
         $data['slug'] = Str::slug($request->judul); // Perbarui slug jika judul berubah
 
         // Atur tanggal publish berdasarkan perubahan status
-        if ($request->status == 'Published' && !$berita->tanggal_publish) {
+        if ($request->status == 'Published' && ! $berita->tanggal_publish) {
             $data['tanggal_publish'] = now();
         } elseif ($request->status == 'Draft') {
             $data['tanggal_publish'] = null;
