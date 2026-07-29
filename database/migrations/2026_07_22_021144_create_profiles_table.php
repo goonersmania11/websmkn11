@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('profiles', function (Blueprint $table) {
-    $table->id();
-    $table->string('nama_sekolah');
-    $table->string('logo')->nullable();
-    $table->text('alamat');
-    $table->text('deskripsi')->nullable();
-    $table->longText('sejarah');
-    $table->text('visi');
-    $table->text('misi');
-    $table->longText('sambutan_kepala_sekolah');
-    $table->string('foto_kepala_sekolah')->nullable();
-    $table->timestamps();
-    });
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_sekolah');
+            $table->string('logo')->nullable();
+            $table->text('alamat');
+            $table->text('deskripsi')->nullable();
+            $table->longText('sejarah');
+            $table->text('visi');
+            $table->text('misi');
+            $table->longText('sambutan_kepala_sekolah');
+            $table->string('foto_kepala_sekolah')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
