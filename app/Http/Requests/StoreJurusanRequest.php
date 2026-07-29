@@ -22,14 +22,13 @@ class StoreJurusanRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'nama' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:jurusans,slug',
-            'singkatan' => 'required|string|max:50',
-            'deskripsi' => 'required',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'visi' => 'required',
-            'misi' => 'required',
-        ];
+    return [
+        'nama' => 'required|string|max:255',
+        'singkatan' => 'required|string|max:50',
+        'deskripsi' => 'required',
+        'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'visi' => 'required',
+        'misi' => 'required',
+    ];
     }
 }
