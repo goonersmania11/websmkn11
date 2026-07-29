@@ -9,21 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
-{
-    Schema::create('beritas', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
-        $table->string('judul');
-        $table->string('slug')->unique(); 
-        $table->text('isi');
-        $table->string('gambar')->nullable(); 
-        $table->string('kategori');
-        $table->enum('status', ['Draft', 'Published'])->default('Draft'); 
-        $table->date('tanggal_publish')->nullable();
-        $table->timestamps();
-    });
-}
+    public function up(): void
+    {
+        Schema::create('beritas', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('judul');
+            $table->string('slug')->unique();
+            $table->text('isi');
+            $table->string('gambar')->nullable();
+            $table->string('kategori');
+            $table->enum('status', ['Draft', 'Published'])->default('Draft');
+            $table->date('tanggal_publish')->nullable();
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

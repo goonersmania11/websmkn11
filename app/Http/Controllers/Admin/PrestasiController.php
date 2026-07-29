@@ -12,6 +12,7 @@ class PrestasiController extends Controller
     public function index()
     {
         $prestasis = Prestasi::latest()->get();
+
         return view('admin.prestasi.index', compact('prestasis'));
     }
 
@@ -26,7 +27,7 @@ class PrestasiController extends Controller
             'nama_prestasi' => 'required|string|max:255',
             'tingkat' => 'required|string|max:100',
             'kategori' => 'required|string|max:100',
-            'tahun' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'tahun' => 'required|digits:4|integer|min:1900|max:'.(date('Y') + 1),
             'penerima' => 'required|string|max:255',
             'deskripsi' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -51,6 +52,7 @@ class PrestasiController extends Controller
     public function edit($id)
     {
         $prestasi = Prestasi::findOrFail($id);
+
         return view('admin.prestasi.edit', compact('prestasi'));
     }
 
@@ -62,7 +64,7 @@ class PrestasiController extends Controller
             'nama_prestasi' => 'required|string|max:255',
             'tingkat' => 'required|string|max:100',
             'kategori' => 'required|string|max:100',
-            'tahun' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'tahun' => 'required|digits:4|integer|min:1900|max:'.(date('Y') + 1),
             'penerima' => 'required|string|max:255',
             'deskripsi' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
