@@ -51,6 +51,42 @@ Route::get('/', function () {
 });
 
 // ==================================================
+// DETAIL PUBLIC
+// ==================================================
+
+Route::get('/berita/{slug}', function ($slug) {
+    $profile = Profile::first();
+    $berita = Berita::where('slug', $slug)->firstOrFail();
+    return view('berita.show', compact('profile', 'berita'));
+})->name('berita.show');
+
+Route::get('/prestasi/{prestasi}', function (Prestasi $prestasi) {
+    $profile = Profile::first();
+    return view('prestasi.show', compact('profile', 'prestasi'));
+})->name('prestasi.show');
+
+Route::get('/guru/{guru}', function (Guru $guru) {
+    $profile = Profile::first();
+    return view('guru.show', compact('profile', 'guru'));
+})->name('guru.show');
+
+Route::get('/jurusan/{slug}', function ($slug) {
+    $profile = Profile::first();
+    $jurusan = Jurusan::where('slug', $slug)->firstOrFail();
+    return view('jurusan.show', compact('profile', 'jurusan'));
+})->name('jurusan.show');
+
+Route::get('/pengumuman/{pengumuman}', function (Pengumuman $pengumuman) {
+    $profile = Profile::first();
+    return view('pengumuman.show', compact('profile', 'pengumuman'));
+})->name('pengumuman.show');
+
+Route::get('/agenda/{agenda}', function (Agenda $agenda) {
+    $profile = Profile::first();
+    return view('agenda.show', compact('profile', 'agenda'));
+})->name('agenda.show');
+
+// ==================================================
 // AUTHENTICATION
 // ==================================================
 
