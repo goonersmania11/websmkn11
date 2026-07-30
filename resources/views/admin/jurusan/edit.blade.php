@@ -129,33 +129,7 @@
 
                         </div>
 
-
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label required">
-
-                                Slug
-
-                            </label>
-
-                            <input type="text"
-                                   name="slug"
-                                   class="form-control @error('slug') is-invalid @enderror"
-                                   value="{{ old('slug', $jurusan->slug) }}">
-
-                            @error('slug')
-
-                                <div class="invalid-feedback">
-
-                                    {{ $message }}
-
-                                </div>
-
-                            @enderror
-
-                        </div>
-
-
+                   
                         <div class="col-12 mb-3">
 
                             <label class="form-label">
