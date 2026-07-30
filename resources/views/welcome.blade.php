@@ -225,9 +225,10 @@
                             <i class="bi bi-bookmark-star"></i>
                         </div>
                     @endif
-                    <h4 class="mt-3">{{ $jurusan->nama }}</h4>
-                    <p class="text-muted small">{{ $jurusan->singkatan }}</p>
-                    <p>{{ $jurusan->deskripsi }}</p>
+                            <h4 class="mt-3">{{ $jurusan->nama }}</h4>
+                            <p class="text-muted small">{{ $jurusan->singkatan }}</p>
+                            <p>{{ $jurusan->deskripsi }}</p>
+                            <a href="{{ route('jurusan.show', $jurusan->slug) }}" class="btn btn-outline-primary btn-sm">Selengkapnya</a>
                 </div>
             </div>
             @endforeach
@@ -262,7 +263,7 @@
                             {{ $berita->tanggal_publish ? \Carbon\Carbon::parse($berita->tanggal_publish)->format('d M Y') : $berita->created_at->format('d M Y') }}
                         </p>
                         <p>{{ Str::limit(strip_tags($berita->isi), 100) }}</p>
-                        <a href="#" class="btn btn-primary">Selengkapnya</a>
+                        <a href="{{ route('berita.show', $berita->slug) }}" class="btn btn-primary">Selengkapnya</a>
                     </div>
                 </div>
             </div>
@@ -299,6 +300,7 @@
                             <i class="bi bi-person"></i> {{ $prestasi->penerima }}
                         </p>
                         <p>{{ Str::limit($prestasi->deskripsi, 100) }}</p>
+                        <a href="{{ route('prestasi.show', $prestasi->id) }}" class="btn btn-outline-primary btn-sm">Detail</a>
                     </div>
                 </div>
             </div>
@@ -333,6 +335,9 @@
                         <small class="text-muted">{{ $guru->bidang_studi }}</small>
                         <br>
                         <small class="badge bg-light text-dark mt-1">{{ $guru->jabatan }}</small>
+                        <div class="mt-2">
+                            <a href="{{ route('guru.show', $guru->id_guru) }}" class="btn btn-outline-primary btn-sm">Profil</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -366,6 +371,7 @@
                             <span class="badge bg-success">Aktif</span>
                         </div>
                         <p class="mb-0 mt-2 small">{{ Str::limit($pengumuman->isi, 120) }}</p>
+                        <a href="{{ route('pengumuman.show', $pengumuman->id) }}" class="btn btn-outline-primary btn-sm mt-2">Selengkapnya</a>
                     </div>
                     @endforeach
                 </div>
@@ -394,6 +400,7 @@
                             </span>
                         </div>
                         <p class="mb-0 mt-2 small">{{ Str::limit($agenda->deskripsi, 120) }}</p>
+                        <a href="{{ route('agenda.show', $agenda->id) }}" class="btn btn-outline-primary btn-sm mt-2">Detail</a>
                     </div>
                     @endforeach
                 </div>
