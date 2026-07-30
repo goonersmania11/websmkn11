@@ -27,7 +27,7 @@ class BeritaController extends Controller
     // 3. PROSES SIMPAN BERITA BARU
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required',
             'kategori' => 'required|string|max:100',
@@ -35,10 +35,14 @@ class BeritaController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        $data = $request->all();
+        // Slug harus unik karena kolomnya memiliki constraint unique di database.
+        $data['slug'] = Str::slug($data['judul']);
 
-        // Logika membuat slug otomatis dari judul
-        $data['slug'] = Str::slug($request->judul);
+        if (Berita::where('slug', $data['slug'])->exists()) {
+            return back()
+                ->withErrors(['judul' => 'Judul berita sudah digunakan. Silakan gunakan judul yang berbeda.'])
+                ->withInput();
+        }
 
         // Ambil ID admin yang sedang login (jika auth belum siap, sementara gunakan ID 1)
         $data['user_id'] = auth()->id() ?? 1;
@@ -75,16 +79,20 @@ class BeritaController extends Controller
     {
         $berita = Berita::findOrFail($id);
 
-        $request->validate([
+        $data = $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required',
             'kategori' => 'required|string|max:100',
             'status' => 'required|in:Draft,Published',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
+        $data['slug'] = Str::slug($data['judul']); // Perbarui slug jika judul berubah
 
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->judul); // Perbarui slug jika judul berubah
+        if (Berita::where('slug', $data['slug'])->where('id', '!=', $berita->id)->exists()) {
+            return back()
+                ->withErrors(['judul' => 'Judul berita sudah digunakan. Silakan gunakan judul yang berbeda.'])
+                ->withInput();
+        }
 
         // Atur tanggal publish berdasarkan perubahan status
         if ($request->status == 'Published' && ! $berita->tanggal_publish) {
