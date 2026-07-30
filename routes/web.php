@@ -102,7 +102,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
             Route::resource('gurus', GuruController::class);
 
             // Berita
-            Route::resource('berita', BeritaController::class);
+            Route::resource('berita', BeritaController::class)
+                ->parameters(['berita' => 'berita']);
 
             // Prestasi
             Route::resource('prestasi', PrestasiController::class);
