@@ -76,11 +76,15 @@
                              x-transition:enter-end="opacity-100 translate-y-0"
                              class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
                             <div class="flex flex-col sm:flex-row sm:items-start gap-5">
-                                {{-- Rank Badge --}}
+                                {{-- Image / Rank Badge --}}
                                 <div class="flex-shrink-0">
-                                    <div class="w-16 h-16 rounded-2xl bg-gold/10 flex items-center justify-center">
-                                        <span class="text-2xl font-black text-gold">{{ $achievement->rank ?? '-' }}</span>
-                                    </div>
+                                    @if($achievement->gambar_url)
+                                        <img src="{{ $achievement->gambar_url }}" alt="{{ $achievement->nama_prestasi }}" class="w-16 h-16 rounded-2xl object-cover">
+                                    @else
+                                        <div class="w-16 h-16 rounded-2xl bg-gold/10 flex items-center justify-center">
+                                            <span class="text-2xl font-black text-gold">{{ $achievement->rank ?? '-' }}</span>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 {{-- Info --}}
