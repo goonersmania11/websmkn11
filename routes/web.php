@@ -94,7 +94,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
             Route::resource('profiles', ProfileController::class);
 
             // Jurusan
-            Route::resource('jurusans', JurusanController::class);
+            Route::resource('jurusans', JurusanController::class)
+                ->scoped(['jurusan' => 'id']);
 
             // Guru
             Route::resource('gurus', GuruController::class);

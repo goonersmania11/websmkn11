@@ -51,10 +51,10 @@
 
                 {{-- Hero Titles --}}
                 <div class="flex flex-col">
-                    <h1 class="text-6xl sm:text-7xl lg:text-[6.5rem] font-black italic tracking-tighter text-white" style="-webkit-text-stroke: 1px #C8A951;">
-                        SMKN <span class="text-[#C8A951] text-[1.15em] leading-none" style="-webkit-text-stroke: 1px white;">11</span>
+                    <h1 class="text-6xl sm:text-7xl lg:text-[6.5rem] font-black italic tracking-tighter text-white">
+                        SMKN <span class="text-[#C8A951] text-[1.15em] leading-none">11</span>
                     </h1>
-                    <h2 class="mt-1 text-2xl sm:text-4xl font-bold tracking-[0.3em] text-navy uppercase" style="-webkit-text-stroke: 1px white; text-shadow: 0 0 12px rgba(200,169,81,0.5);">
+                    <h2 class="mt-1 text-2xl sm:text-4xl font-bold tracking-[0.3em] text-white uppercase">
                         Kab. Tangerang
                     </h2>
                 </div>

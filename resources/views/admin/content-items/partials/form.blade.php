@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-6 mb-3">
         <label class="form-label">Tanggal Acara</label>
-        <input type="date" name="event_date" class="form-control" value="{{ old('event_date', $item->event_date?->format('Y-m-d') ?? '') }}">
+        <input type="date" name="event_date" class="form-control" value="{{ old('event_date', $item?->event_date?->format('Y-m-d') ?? '') }}">
     </div>
 </div>
 
