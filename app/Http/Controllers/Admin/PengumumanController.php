@@ -11,6 +11,7 @@ class PengumumanController extends Controller
     public function index()
     {
         $pengumumans = Pengumuman::latest()->get();
+
         return view('admin.pengumuman.index', compact('pengumumans'));
     }
 
@@ -29,12 +30,14 @@ class PengumumanController extends Controller
         ]);
 
         Pengumuman::create($data);
+
         return redirect()->route('admin.pengumuman.index')->with('success', 'Pengumuman berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
         $pengumuman = Pengumuman::findOrFail($id);
+
         return view('admin.pengumuman.edit', compact('pengumuman'));
     }
 
@@ -49,12 +52,14 @@ class PengumumanController extends Controller
         ]);
 
         $pengumuman->update($data);
+
         return redirect()->route('admin.pengumuman.index')->with('success', 'Pengumuman berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
         Pengumuman::findOrFail($id)->delete();
+
         return redirect()->route('admin.pengumuman.index')->with('success', 'Pengumuman berhasil dihapus!');
     }
 }

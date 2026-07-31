@@ -281,6 +281,60 @@
 
                         </li>
 
+                        {{-- Content Items --}}
+                        <li class="nav-item {{ request()->routeIs('admin.content-items.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.content-items.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-packages"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Koleksi Konten
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        {{-- Settings --}}
+                        <li class="nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.settings.edit') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-settings"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Pengaturan
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        {{-- Messages --}}
+                        <li class="nav-item {{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}">
+
+                            <a class="nav-link"
+                               href="{{ route('admin.contact-messages.index') }}">
+
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-mail"></i>
+                                </span>
+
+                                <span class="nav-link-title">
+                                    Pesan
+                                </span>
+
+                            </a>
+
+                        </li>
+
                     </ul>
 
                 </div>

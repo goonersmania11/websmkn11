@@ -34,21 +34,22 @@ class JurusanController extends Controller
      */
     public function store(StoreJurusanRequest $request)
     {
-    $data = $request->validated();
-    $slug = Str::slug($request->nama);
-    $count = Jurusan::where('slug', 'LIKE', "{$slug}%")->count();
-    $data['slug'] = $count ? "{$slug}-" . ($count + 1) : $slug;
-    if ($request->hasFile('gambar')) {
-        $data['gambar'] = $request->file('gambar')->store('jurusan', 'public');
+        $data = $request->validated();
+        $slug = Str::slug($request->nama);
+        $count = Jurusan::where('slug', 'LIKE', "{$slug}%")->count();
+        $data['slug'] = $count ? "{$slug}-".($count + 1) : $slug;
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('jurusan', 'public');
+        }
+        Jurusan::create($data);
+
+        return redirect()
+            ->route('admin.jurusans.index')
+            ->with('success', 'Data jurusan berhasil ditambahkan.');
     }
-    Jurusan::create($data);
-    return redirect()
-        ->route('admin.jurusans.index')
-        ->with('success', 'Data jurusan berhasil ditambahkan.');
-    } 
 
     /**
-     * Display the specified resource.  
+     * Display the specified resource.
      */
     public function show(string $id)
     {
@@ -68,23 +69,24 @@ class JurusanController extends Controller
      */
     public function update(UpdateJurusanRequest $request, Jurusan $jurusan)
     {
-    $data = $request->validated();
-    $slug = Str::slug($request->nama);
-    $count = Jurusan::where('slug', 'LIKE', "{$slug}%")
-        ->where('id', '!=', $jurusan->id)
-        ->count();
-    $data['slug'] = $count ? "{$slug}-" . ($count + 1) : $slug;
-    if ($request->hasFile('gambar')) {
-        if ($jurusan->gambar &&
-            Storage::disk('public')->exists($jurusan->gambar)) {
-            Storage::disk('public')->delete($jurusan->gambar);
+        $data = $request->validated();
+        $slug = Str::slug($request->nama);
+        $count = Jurusan::where('slug', 'LIKE', "{$slug}%")
+            ->where('id', '!=', $jurusan->id)
+            ->count();
+        $data['slug'] = $count ? "{$slug}-".($count + 1) : $slug;
+        if ($request->hasFile('gambar')) {
+            if ($jurusan->gambar &&
+                Storage::disk('public')->exists($jurusan->gambar)) {
+                Storage::disk('public')->delete($jurusan->gambar);
+            }
+            $data['gambar'] = $request->file('gambar')->store('jurusan', 'public');
         }
-        $data['gambar'] = $request->file('gambar')->store('jurusan', 'public');
-    }
-    $jurusan->update($data);
-    return redirect()
-        ->route('admin.jurusans.index')
-        ->with('success', 'Data jurusan berhasil diperbarui.');
+        $jurusan->update($data);
+
+        return redirect()
+            ->route('admin.jurusans.index')
+            ->with('success', 'Data jurusan berhasil diperbarui.');
     }
 
     /**

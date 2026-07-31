@@ -1,90 +1,52 @@
 <?php
 
 use App\Http\Controllers\Admin\AgendaController;
-// Controllers
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\ContentItemController;
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\PrestasiController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
-use App\Models\Agenda;
-// Models
-use App\Models\Berita;
-use App\Models\Guru;
-use App\Models\Jurusan;
-use App\Models\Pengumuman;
-use App\Models\Prestasi;
-use App\Models\Profile;
+use App\Http\Controllers\Web\AcademicController;
+use App\Http\Controllers\Web\AdmissionsController;
+use App\Http\Controllers\Web\ContactController;
+use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\InformationController;
+use App\Http\Controllers\Web\ProfileController as WebProfileController;
+use App\Http\Controllers\Web\StudentController;
 use Illuminate\Support\Facades\Route;
 
 // ==================================================
 // HALAMAN PUBLIC
 // ==================================================
 
-Route::get('/', function () {
-    $profile = Profile::first();
-    $jurusans = Jurusan::all();
-    $beritas = Berita::where('status', 'Published')
-        ->latest('tanggal_publish')
-        ->limit(6)
-        ->get();
-    $prestasis = Prestasi::latest()->limit(6)->get();
-    $pengumumans = Pengumuman::where('status', 'Aktif')
-        ->latest('tanggal')
-        ->limit(5)
-        ->get();
-    $gurus = Guru::latest()->limit(8)->get();
-    $agendas = Agenda::latest('tanggal')->limit(5)->get();
+Route::get('/', [HomeController::class, 'index']);
 
-    return view('welcome', compact(
-        'profile',
-        'jurusans',
-        'beritas',
-        'prestasis',
-        'pengumumans',
-        'gurus',
-        'agendas'
-    ));
-});
+Route::get('/profil/sejarah', [WebProfileController::class, 'history']);
+Route::get('/profil/visi-misi', [WebProfileController::class, 'visionMission']);
+Route::get('/profil/struktur-organisasi', [WebProfileController::class, 'organization']);
 
-// ==================================================
-// DETAIL PUBLIC
-// ==================================================
+Route::get('/akademik/program-keahlian', [AcademicController::class, 'programs']);
+Route::get('/akademik/program/{jurusan}', [AcademicController::class, 'programDetail'])->name('program.show');
+Route::get('/akademik/fasilitas', [AcademicController::class, 'facilities']);
 
-Route::get('/berita/{slug}', function ($slug) {
-    $profile = Profile::first();
-    $berita = Berita::where('slug', $slug)->firstOrFail();
-    return view('berita.show', compact('profile', 'berita'));
-})->name('berita.show');
+Route::get('/kesiswaan/prestasi', [StudentController::class, 'achievements']);
+Route::get('/kesiswaan/ekstrakurikuler', [StudentController::class, 'extracurriculars']);
+Route::get('/kesiswaan/galeri', [StudentController::class, 'gallery']);
 
-Route::get('/prestasi/{prestasi}', function (Prestasi $prestasi) {
-    $profile = Profile::first();
-    return view('prestasi.show', compact('profile', 'prestasi'));
-})->name('prestasi.show');
+Route::get('/informasi/berita', [InformationController::class, 'news']);
+Route::get('/informasi/berita/{berita}', [InformationController::class, 'newsDetail'])->name('berita.show');
+Route::get('/informasi/faq', [InformationController::class, 'faq']);
 
-Route::get('/guru/{guru}', function (Guru $guru) {
-    $profile = Profile::first();
-    return view('guru.show', compact('profile', 'guru'));
-})->name('guru.show');
+Route::get('/spmb', [AdmissionsController::class, 'index']);
 
-Route::get('/jurusan/{slug}', function ($slug) {
-    $profile = Profile::first();
-    $jurusan = Jurusan::where('slug', $slug)->firstOrFail();
-    return view('jurusan.show', compact('profile', 'jurusan'));
-})->name('jurusan.show');
-
-Route::get('/pengumuman/{pengumuman}', function (Pengumuman $pengumuman) {
-    $profile = Profile::first();
-    return view('pengumuman.show', compact('profile', 'pengumuman'));
-})->name('pengumuman.show');
-
-Route::get('/agenda/{agenda}', function (Agenda $agenda) {
-    $profile = Profile::first();
-    return view('agenda.show', compact('profile', 'agenda'));
-})->name('agenda.show');
+Route::get('/kontak', [ContactController::class, 'show'])->name('contact.show');
+Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 
 // ==================================================
 // AUTHENTICATION
@@ -150,6 +112,26 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
             // Agenda
             Route::resource('agenda', AgendaController::class);
 
+            // Content Items (Fasilitas, Eskul, Galeri, FAQ, Sejarah, Nilai Inti, Slide, Statistik, SPMB)
+            Route::resource('content-items', ContentItemController::class)
+                ->parameters(['content-items' => 'contentItem']);
+
+            // Settings
+            Route::get('/settings', [SiteSettingController::class, 'edit'])->name('settings.edit');
+            Route::put('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
+
+            // Contact Messages
+            Route::resource('contact-messages', ContactMessageController::class)->only(['index', 'show', 'destroy']);
+            Route::put('/contact-messages/{contactMessage}/mark-read', [ContactMessageController::class, 'markRead'])->name('contact-messages.mark-read');
+
         });
 
+});
+
+// ==================================================
+// 404
+// ==================================================
+
+Route::fallback(function () {
+    return response()->view('pages.errors.404', [], 404);
 });
