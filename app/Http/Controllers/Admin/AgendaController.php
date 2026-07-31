@@ -12,6 +12,7 @@ class AgendaController extends Controller
     public function index()
     {
         $agendas = Agenda::latest()->get();
+
         return view('admin.agenda.index', compact('agendas'));
     }
 
@@ -36,12 +37,14 @@ class AgendaController extends Controller
         }
 
         Agenda::create($data);
+
         return redirect()->route('admin.agenda.index')->with('success', 'Agenda berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
         $agenda = Agenda::findOrFail($id);
+
         return view('admin.agenda.edit', compact('agenda'));
     }
 
@@ -65,6 +68,7 @@ class AgendaController extends Controller
         }
 
         $agenda->update($data);
+
         return redirect()->route('admin.agenda.index')->with('success', 'Agenda berhasil diperbarui!');
     }
 
@@ -75,6 +79,7 @@ class AgendaController extends Controller
             Storage::disk('public')->delete($agenda->gambar);
         }
         $agenda->delete();
+
         return redirect()->route('admin.agenda.index')->with('success', 'Agenda berhasil dihapus!');
     }
 }
