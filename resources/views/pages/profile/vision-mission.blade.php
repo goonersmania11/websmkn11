@@ -45,12 +45,7 @@
                         <span class="text-navy font-black text-sm">{{ $index + 1 }}</span>
                     </div>
                     <div class="flex-1 min-w-0">
-                        @if(!empty($mission->title))
-                            <h3 class="font-bold text-navy">{{ $mission->title }}</h3>
-                        @endif
-                        @if(!empty($mission->body))
-                            <p class="mt-1 text-navy/60 leading-relaxed">{{ $mission->body }}</p>
-                        @endif
+                        <p class="text-navy/60 leading-relaxed">{{ trim($mission) }}</p>
                     </div>
                 </div>
             @endforeach

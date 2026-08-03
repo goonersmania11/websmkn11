@@ -29,7 +29,7 @@
                         ['label' => 'Program Keahlian', 'url' => '/akademik/program-keahlian'],
                         ['label' => 'Fasilitas', 'url' => '/akademik/fasilitas'],
                     ]],
-                    ['label' => 'Kesiswaan', 'children' => [
+                    ['label' => 'Manajemen', 'children' => [
                         ['label' => 'Prestasi', 'url' => '/kesiswaan/prestasi'],
                         ['label' => 'Ekstrakurikuler', 'url' => '/kesiswaan/ekstrakurikuler'],
                         ['label' => 'Galeri', 'url' => '/kesiswaan/galeri'],

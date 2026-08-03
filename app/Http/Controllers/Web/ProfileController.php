@@ -23,7 +23,9 @@ class ProfileController extends Controller
     {
         $profile = Profile::first();
         $settings = SiteSetting::pluck('value', 'key')->toArray();
-        $missions = explode("\n", $profile->misi ?? '');
+        $missions = array_values(array_filter(
+            array_map('trim', preg_split('/\R/', $profile->misi ?? '')),
+        ));
         $values = ContentItem::type('core_value')->published()->ordered()->get();
 
         return view('pages.profile.vision-mission', compact('profile', 'settings', 'missions', 'values'));
