@@ -19,6 +19,8 @@ class InformationController extends Controller
 
     public function newsDetail(Berita $berita)
     {
+        abort_unless($berita->status === 'Published', 404);
+
         $profile = Profile::first();
         $related = Berita::latestPublished()
             ->where('id', '!=', $berita->id)

@@ -21,6 +21,8 @@ class AcademicController extends Controller
 
     public function programDetail(Jurusan $jurusan)
     {
+        abort_unless($jurusan->is_published, 404);
+
         $profile = Profile::first();
         $settings = SiteSetting::pluck('value', 'key')->toArray();
         $program = $jurusan;

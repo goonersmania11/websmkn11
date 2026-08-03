@@ -35,11 +35,11 @@ Route::get('/akademik/program-keahlian', [AcademicController::class, 'programs']
 Route::get('/akademik/program/{jurusan}', [AcademicController::class, 'programDetail'])->name('program.show');
 Route::get('/akademik/fasilitas', [AcademicController::class, 'facilities']);
 
-Route::get('/kesiswaan/prestasi', [StudentController::class, 'achievements']);
+Route::get('/kesiswaan/prestasi', [StudentController::class, 'achievements'])->name('prestasi.index');
 Route::get('/kesiswaan/ekstrakurikuler', [StudentController::class, 'extracurriculars']);
 Route::get('/kesiswaan/galeri', [StudentController::class, 'gallery']);
 
-Route::get('/informasi/berita', [InformationController::class, 'news']);
+Route::get('/informasi/berita', [InformationController::class, 'news'])->name('berita.index');
 Route::get('/informasi/berita/{berita}', [InformationController::class, 'newsDetail'])->name('berita.show');
 Route::get('/informasi/faq', [InformationController::class, 'faq']);
 
@@ -88,14 +88,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
             })->name('dashboard');
 
             // User Management
-            Route::resource('users', UserController::class);
+            Route::resource('users', UserController::class)->except('show');
 
             // Profil Sekolah
-            Route::resource('profiles', ProfileController::class);
+            Route::resource('profiles', ProfileController::class)->except('show');
 
             // Jurusan
             Route::resource('jurusans', JurusanController::class)
-                ->scoped(['jurusan' => 'id']);
+                ->scoped(['jurusan' => 'id'])
+                ->except('show');
 
             // Guru
             Route::resource('gurus', GuruController::class);
@@ -108,14 +109,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
             Route::resource('prestasi', PrestasiController::class);
 
             // Pengumuman
-            Route::resource('pengumuman', PengumumanController::class);
+            Route::resource('pengumuman', PengumumanController::class)->except('show');
 
             // Agenda
-            Route::resource('agenda', AgendaController::class);
+            Route::resource('agenda', AgendaController::class)->except('show');
 
             // Content Items (Fasilitas, Eskul, Galeri, FAQ, Sejarah, Nilai Inti, Slide, Statistik, SPMB)
             Route::resource('content-items', ContentItemController::class)
-                ->parameters(['content-items' => 'contentItem']);
+                ->parameters(['content-items' => 'contentItem'])
+                ->except('show');
 
             // Settings
             Route::get('/settings', [SiteSettingController::class, 'edit'])->name('settings.edit');

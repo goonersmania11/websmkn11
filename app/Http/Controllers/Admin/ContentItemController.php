@@ -68,7 +68,7 @@ class ContentItemController extends Controller
         ]);
 
         $data['is_published'] = $request->boolean('is_published');
-        $data['slug'] = Str::slug($data['title']);
+        $data['slug'] = $this->uniqueSlug($data['type'], $data['title']);
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('content-items', 'public');
@@ -107,7 +107,7 @@ class ContentItemController extends Controller
         ]);
 
         $data['is_published'] = $request->boolean('is_published');
-        $data['slug'] = Str::slug($data['title']);
+        $data['slug'] = $this->uniqueSlug($contentItem->type, $data['title'], $contentItem->id);
 
         if ($request->hasFile('image')) {
             if ($contentItem->image && Storage::disk('public')->exists($contentItem->image)) {
@@ -136,5 +136,22 @@ class ContentItemController extends Controller
         return redirect()
             ->route('admin.content-items.index', ['type' => $type])
             ->with('success', 'Data berhasil dihapus.');
+    }
+
+    private function uniqueSlug(string $type, string $title, ?int $ignoreId = null): string
+    {
+        $base = Str::slug($title) ?: 'content-item';
+        $slug = $base;
+        $suffix = 2;
+
+        while (ContentItem::query()
+            ->where('type', $type)
+            ->where('slug', $slug)
+            ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
+            ->exists()) {
+            $slug = $base.'-'.$suffix++;
+        }
+
+        return $slug;
     }
 }

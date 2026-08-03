@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
 
 class AdminModuleStorageTest extends TestCase
@@ -51,5 +52,38 @@ class AdminModuleStorageTest extends TestCase
             ->assertSessionHasErrors('judul');
 
         $this->assertDatabaseCount('beritas', 1);
+    }
+
+    public function test_admin_can_store_content_items_with_duplicate_titles(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $data = [
+            'type' => 'facility',
+            'title' => 'Laboratorium Komputer',
+            'is_published' => '1',
+        ];
+
+        $this->actingAs($admin)->post(route('admin.content-items.store'), $data)
+            ->assertRedirect(route('admin.content-items.index', ['type' => 'facility']));
+
+        $this->actingAs($admin)->post(route('admin.content-items.store'), $data)
+            ->assertRedirect(route('admin.content-items.index', ['type' => 'facility']));
+
+        $this->assertDatabaseHas('content_items', ['slug' => 'laboratorium-komputer']);
+        $this->assertDatabaseHas('content_items', ['slug' => 'laboratorium-komputer-2']);
+    }
+
+    public function test_admin_resources_without_show_actions_do_not_register_show_routes(): void
+    {
+        foreach ([
+            'admin.users.show',
+            'admin.profiles.show',
+            'admin.jurusans.show',
+            'admin.pengumuman.show',
+            'admin.agenda.show',
+            'admin.content-items.show',
+        ] as $routeName) {
+            $this->assertFalse(Route::has($routeName));
+        }
     }
 }

@@ -330,7 +330,7 @@
                             </span>
                             <h2 class="text-2xl md:text-3xl font-black text-navy">{{ $settings['news_title'] ?? 'Berita Terbaru' }}</h2>
                         </div>
-                        <a href="/berita" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-gold hover:gap-3 transition-all">
+                        <a href="{{ route('berita.index') }}" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-gold hover:gap-3 transition-all">
                             {{ $settings['news_all_text'] ?? 'Semua Berita' }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
@@ -338,7 +338,7 @@
 
                     <div class="space-y-6">
                         @foreach($beritas->take(3) as $berita)
-                            <a href="/berita/{{ $berita->slug }}" class="group flex flex-col sm:flex-row gap-5 p-4 bg-cream rounded-xl hover:shadow-md transition-all duration-300">
+                            <a href="{{ route('berita.show', $berita) }}" class="group flex flex-col sm:flex-row gap-5 p-4 bg-cream rounded-xl hover:shadow-md transition-all duration-300">
                                 <div class="sm:w-48 flex-shrink-0 aspect-video sm:aspect-[4/3] rounded-lg overflow-hidden bg-navy/5">
                                     @if(!empty($berita->gambar_url))
                                         <img src="{{ $berita->gambar_url }}" alt="{{ $berita->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -362,7 +362,7 @@
                     </div>
 
                     <div class="mt-6 sm:hidden text-center">
-                        <a href="/berita" class="inline-flex items-center gap-1.5 text-sm font-semibold text-gold">
+                        <a href="{{ route('berita.index') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-gold">
                             {{ $settings['news_all_text'] ?? 'Semua Berita' }}
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
@@ -384,7 +384,7 @@
 
                     <div class="space-y-4">
                         @foreach($prestasis->take(5) as $prestasi)
-                            <a href="/prestasi/{{ $prestasi->id }}" class="group block p-4 bg-cream rounded-xl hover:shadow-md transition-all duration-300">
+                            <a href="{{ route('prestasi.index') }}" class="group block p-4 bg-cream rounded-xl hover:shadow-md transition-all duration-300">
                                 <div class="flex items-start gap-4">
                                     @if(!empty($prestasi->gambar_url))
                                         <div class="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-navy/5">
