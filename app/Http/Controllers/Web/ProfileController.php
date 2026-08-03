@@ -49,4 +49,13 @@ class ProfileController extends Controller
             'gurus',
         ));
     }
+
+    public function teacherDetail(Guru $guru)
+    {
+        abort_unless($guru->is_published, 404);
+
+        $profile = Profile::first();
+
+        return view('guru.show', compact('guru', 'profile'));
+    }
 }

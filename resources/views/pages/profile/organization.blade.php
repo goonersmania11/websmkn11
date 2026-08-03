@@ -21,7 +21,7 @@
 
         <div class="flex flex-wrap justify-center gap-8">
             @foreach($principals as $guru)
-                <a href="/guru/{{ $guru->id_guru }}" class="group text-center max-w-xs">
+                <a href="{{ route('guru.show', $guru) }}" class="group text-center max-w-xs">
                     <div class="relative w-32 h-32 mx-auto rounded-full overflow-hidden bg-navy/5 ring-4 ring-gold/20 group-hover:ring-gold/40 transition-all duration-300">
                         @if(!empty($guru->foto_url))
                             <img src="{{ $guru->foto_url }}" alt="{{ $guru->nama }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -54,7 +54,7 @@
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
             @foreach($vicePrincipals as $guru)
-                <a href="/guru/{{ $guru->id_guru }}" class="group text-center w-full max-w-xs">
+                <a href="{{ route('guru.show', $guru) }}" class="group text-center w-full max-w-xs">
                     <div class="relative w-28 h-28 mx-auto rounded-full overflow-hidden bg-navy/5 ring-2 ring-navy/10 group-hover:ring-gold/40 transition-all duration-300">
                         @if(!empty($guru->foto_url))
                             <img src="{{ $guru->foto_url }}" alt="{{ $guru->nama }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -87,7 +87,7 @@
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($departmentHeads as $guru)
-                <a href="/guru/{{ $guru->id_guru }}" class="group bg-white p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-center">
+                <a href="{{ route('guru.show', $guru) }}" class="group bg-white p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-center">
                     <div class="relative w-20 h-20 mx-auto rounded-full overflow-hidden bg-navy/5 ring-2 ring-navy/10 group-hover:ring-gold/40 transition-all duration-300">
                         @if(!empty($guru->foto_url))
                             <img src="{{ $guru->foto_url }}" alt="{{ $guru->nama }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -123,7 +123,7 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
             @foreach($gurus as $guru)
-                <a href="/guru/{{ $guru->id_guru }}" class="group bg-cream rounded-xl overflow-hidden hover:shadow-md transition-all duration-300">
+                <a href="{{ route('guru.show', $guru) }}" class="group bg-cream rounded-xl overflow-hidden hover:shadow-md transition-all duration-300">
                     <div class="aspect-[3/4] bg-navy/5 overflow-hidden">
                         @if(!empty($guru->foto_url))
                             <img src="{{ $guru->foto_url }}" alt="{{ $guru->nama }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">

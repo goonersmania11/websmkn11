@@ -151,7 +151,7 @@
                                 </div>
                             @endif
 
-                            @if($settings['jam_operasional'] ?? null)
+                            @if($settings['service_hours'] ?? null)
                                 <div class="flex items-start gap-4">
                                     <div class="shrink-0 w-10 h-10 rounded-lg bg-navy/5 flex items-center justify-center">
                                         <svg class="w-5 h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,7 +160,7 @@
                                     </div>
                                     <div>
                                         <h3 class="text-sm font-semibold text-navy mb-0.5">Jam Operasional</h3>
-                                        <p class="text-sm text-navy/60">{!! $settings['jam_operasional'] !!}</p>
+                                        <p class="text-sm text-navy/60">{{ $settings['service_hours'] }}</p>
                                     </div>
                                 </div>
                             @endif

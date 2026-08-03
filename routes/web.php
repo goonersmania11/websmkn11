@@ -30,6 +30,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/profil/sejarah', [WebProfileController::class, 'history']);
 Route::get('/profil/visi-misi', [WebProfileController::class, 'visionMission']);
 Route::get('/profil/struktur-organisasi', [WebProfileController::class, 'organization']);
+Route::get('/guru/{guru}', [WebProfileController::class, 'teacherDetail'])->name('guru.show');
 
 Route::get('/akademik/program-keahlian', [AcademicController::class, 'programs']);
 Route::get('/akademik/program/{jurusan}', [AcademicController::class, 'programDetail'])->name('program.show');
