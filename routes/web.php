@@ -100,6 +100,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
                 ->except('show');
 
             // Guru
+            // Import/export/template didefinisikan sebelum resource agar tidak tertangkap route {guru}.
+            Route::get('/gurus/import/template', [GuruController::class, 'template'])->name('gurus.import.template');
+            Route::get('/gurus/export', [GuruController::class, 'export'])->name('gurus.export');
+            Route::post('/gurus/import/preview', [GuruController::class, 'importPreview'])->name('gurus.import.preview');
+            Route::post('/gurus/import', [GuruController::class, 'import'])->name('gurus.import');
             Route::resource('gurus', GuruController::class);
 
             // Berita
